@@ -150,15 +150,18 @@
 						$h4 = $table->createElement('h4', "Nachrichten zum Tag");
 						$table->appendChild($h4);
 						$headingCounter++;
+
+						if ($this->conf['showMotd'] == 1) {
 						// Nachrichten zum Tag
-						foreach ($rows as $row)
-						{
-							$cols = $row->getElementsByTagName('td');
-							$tableRow = $table->createElement('tr');
-							for ($i = 0; $i <= 1; $i++) {
-								$tableRow->appendChild($table->createElement('td', $cols->item($i)->nodeValue));
+							foreach ($rows as $row)
+							{
+								$cols = $row->getElementsByTagName('td');
+								$tableRow = $table->createElement('tr');
+								for ($i = 0; $i <= 1; $i++) {
+									$tableRow->appendChild($table->createElement('td', $cols->item($i)->nodeValue));
+								}
+								$tb->appendChild($tableRow);
 							}
-							$tb->appendChild($tableRow);
 						}
 					}
 					$table->appendChild($tb);
