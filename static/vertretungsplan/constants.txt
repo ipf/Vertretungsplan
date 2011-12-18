@@ -1,0 +1,6 @@
+plugin {
+	tx_vertretungsplan_pi1 {
+		storageFolder = fileadmin/Untis/
+		showMotd = 1
+	}
+}
