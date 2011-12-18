@@ -20,6 +20,11 @@ Just include the frontend Plugin "Vertretungsplan" and upload the Untis-generate
 
 Extbase is cool! Really. But it would nowadays be the total overkill for this small Extension, so I decided to do it in the oldschool piBase way.
 
+## Development
+
+The development and sourcecode management is done with git. Feel free to clone this Extension or to send me pull requests.
+The repository can be found [here](https://github.com/ipf/Vertretungsplan).
+
 ## Todo
 
 * Awareness of year-changes
