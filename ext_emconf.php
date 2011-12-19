@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext "vertretungsplan".
 #
-# Auto generated 18-12-2011 19:51
+# Auto generated 19-12-2011 18:44
 #
 # Manual updates:
 # Only the data in the array - everything else is removed by next
@@ -29,7 +29,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author_company' => '',
-	'version' => '0.0.0',
+	'version' => '0.1.0',
 	'constraints' => array(
 		'depends' => array(
 		),
@@ -38,7 +38,9 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:12:{s:9:"ChangeLog";s:4:"40e6";s:10:"README.txt";s:4:"ee2d";s:12:"ext_icon.gif";s:4:"1bdc";s:17:"ext_localconf.php";s:4:"c149";s:14:"ext_tables.php";s:4:"12f3";s:16:"locallang_db.xml";s:4:"a58b";s:19:"doc/wizard_form.dat";s:4:"8639";s:20:"doc/wizard_form.html";s:4:"aa77";s:36:"pi1/class.tx_vertretungsplan_pi1.php";s:4:"10ea";s:17:"pi1/locallang.xml";s:4:"6343";s:36:"static/vertretungsplan/constants.txt";s:4:"dec4";s:32:"static/vertretungsplan/setup.txt";s:4:"0885";}',
+	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"4691";s:9:"Readme.md";s:4:"b04f";s:12:"ext_icon.gif";s:4:"0cef";s:17:"ext_localconf.php";s:4:"c149";s:14:"ext_tables.php";s:4:"12f3";s:16:"locallang_db.xml";s:4:"a58b";s:36:"pi1/class.tx_vertretungsplan_pi1.php";s:4:"fee6";s:17:"pi1/locallang.xml";s:4:"6343";s:36:"static/vertretungsplan/constants.txt";s:4:"c9f8";s:32:"static/vertretungsplan/setup.txt";s:4:"5882";}',
+	'suggests' => array(
+	),
 );
 
 ?>
