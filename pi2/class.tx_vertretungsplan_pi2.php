@@ -60,8 +60,8 @@
 				'1'
 			);
 
-			while ($row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-				$content = $row1['plan'];
+			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+				$content = $row['plan'];
 			}
 
 			return $this->pi_wrapInBaseClass($content);
