@@ -16,6 +16,11 @@ determines whether the news for the day are shown or not. Sometimes it is not de
 
 Just include the frontend Plugin "Vertretungsplan" and upload the Untis-generated files and the content will be shown in the frontend.
 
+### Fakeweek
+
+With the TypoScript Option plugin.tx_vertretungsplan_pi1.fakeWeek you are able to simulate a specific week of the year.
+Instead of the current one the contents of this week's vertretungsplan is parsed
+
 ## Why not Extbase?
 
 Extbase is cool! Really. But it would nowadays be the total overkill for this small Extension, so I decided to do it in the oldschool piBase way.

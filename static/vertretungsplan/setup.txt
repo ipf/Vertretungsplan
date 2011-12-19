@@ -2,5 +2,6 @@ plugin {
 	tx_vertretungsplan_pi1 {
 		storageFolder = {$plugin.tx_vertretungsplan_pi1.storageFolder}
 		showMotd = {$plugin.tx_vertretungsplan_pi1.showMotd}
+		fakeWeek = 0
 	}
 }

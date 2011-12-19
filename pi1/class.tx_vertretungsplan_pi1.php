@@ -179,8 +179,12 @@
 		 */
 		protected function checkThisAndNextWeek($weeks) {
 
-			$currentWeek = date('W');
-
+				// check if the week is faked in TypoScript
+			if ($this->conf['fakeWeek'] > 0 && $this->conf['fakeWeek'] < 54) {
+				$currentWeek = $this->conf['fakeWeek'];
+			} else {
+				$currentWeek = date('W');
+			}
 			$nextWeek = $currentWeek + 1;
 			$return = FALSE;
 
