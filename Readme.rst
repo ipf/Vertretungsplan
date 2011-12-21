@@ -6,7 +6,7 @@ TYPO3 Extension for Untis Vertretungsplan
 What does it do?
 ****************
 
-This Extension for TYPO3 parses a Vertretungsplan generated out of the [Untis Software](http://www.grupet.at/de/produkte/untis/uebersicht_untis.php).
+This Extension for TYPO3 parses a Vertretungsplan generated out of the `Untis Software <http://www.grupet.at/de/produkte/untis/uebersicht_untis.php>`_.
 
 ************
 Installation
