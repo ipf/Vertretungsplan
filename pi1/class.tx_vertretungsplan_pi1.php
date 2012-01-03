@@ -114,8 +114,8 @@
 					$table->formatOutput = TRUE;
 					$tb = $table->createElement('table');
 
-					// die ungeraden Tabellen sind die Plaene
-					// die geraden Tabellen die Nachrichten zum Tag
+					// Odd tables show the substitue plans
+					// Even tables show the messages of the day
 					if ($j % 2 !== 0) {
 						// Tableheads
 						$tableHeadRow = $table->createElement('tr');
@@ -150,7 +150,7 @@
 						$headingCounter++;
 
 						if ($this->conf['showMotd'] == 1) {
-							// Nachrichten zum Tag
+							// Messages of the day
 							foreach ($rows as $row)
 							{
 								$cols = $row->getElementsByTagName('td');
