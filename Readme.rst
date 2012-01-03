@@ -57,8 +57,10 @@ Extbase is cool! Really. But it would nowadays be the total overkill for this sm
 Development
 ***********
 
-The development and sourcecode management is done with git. Feel free to clone this Extension or to send me pull requests.
+The development and sourcecode management is done with git and currently on GitHub. Feel free to clone this Extension or to send me pull requests.
 The repository can be found `here <https://github.com/ipf/Vertretungsplan>`_.
+
+As soon as the TYPO3 forge is able to handle git repositories, the development will be moved to `forge <http://forge.typo3.org>`_.
 
 ****
 Todo
@@ -66,3 +68,4 @@ Todo
 
 * Awareness of year-changes
 * Format messages of the day and remove the crappy table-stuff from them
+* Add caching via Caching Framework
