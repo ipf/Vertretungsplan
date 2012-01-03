@@ -21,7 +21,6 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-
 	require_once(PATH_tslib . 'class.tslib_pibase.php');
 
 	/**
@@ -39,9 +38,9 @@
 		/**
 		 * Main method of the Vertretungsplan Plugin
 		 *
-		 * @param string $content: The PlugIn content
-		 * @param array $conf: The PlugIn configuration
-		 * @return The content that is displayed on the website
+		 * @param string $content The PlugIn content
+		 * @param array $conf The PlugIn configuration
+		 * @return string The content that is displayed on the website
 		 */
 		function main($content, $conf) {
 			$this->conf = $conf;
@@ -58,7 +57,6 @@
 			$files = scandir($startDirectory);
 
 			$dirContainer = Array();
-
 			// iterate through all folders and add them to an array
 			foreach ($files as $input) {
 
@@ -95,17 +93,17 @@
 			$plans = array();
 			foreach ($directories as $directory) {
 
-				// Plan einlesen
+				// Read plan
 				$planFile = new DOMDocument();
 				$planFile->loadHTMLFile($startDirectory . $directory . $planDirectory . $planFileName);
 				$planFile->formatOutput = TRUE;
 				$planFile->preserveWhiteSpace = FALSE;
-				// Beschraenken auf Tabellen
+				// Limit to tables
 				$tables = $planFile->getElementsByTagName('table');
 				$headings = $planFile->getElementsByTagName('big');
-				// Anzahl der Tabellen in dem Document
+				// Number of tables in the document
 				$nodeListLength = $tables->length;
-				// Helfer fuer die Ueberschriften
+				// Helper for the headings
 				$headingCounter = 0;
 
 				for ($j = 0; $j < $nodeListLength; $j++) {
@@ -119,18 +117,18 @@
 					// die ungeraden Tabellen sind die Plaene
 					// die geraden Tabellen die Nachrichten zum Tag
 					if ($j % 2 !== 0) {
-						// Tabellenkoepfe
+						// Tableheads
 						$tableHeadRow = $table->createElement('tr');
-						$tableHeadRow->appendChild($table->createElement('th', "Neu"));
-						$tableHeadRow->appendChild($table->createElement('th', "Datum"));
-						$tableHeadRow->appendChild($table->createElement('th', "Lehrkraft"));
-						$tableHeadRow->appendChild($table->createElement('th', "Klasse"));
-						$tableHeadRow->appendChild($table->createElement('th', "Stunde"));
-						$tableHeadRow->appendChild($table->createElement('th', "Fach"));
-						$tableHeadRow->appendChild($table->createElement('th', "Raum"));
-						$tableHeadRow->appendChild($table->createElement('th', "Vertretung"));
-						$tableHeadRow->appendChild($table->createElement('th', "Art"));
-						$tableHeadRow->appendChild($table->createElement('th', "Bemerkungen"));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.new')));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.date')));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.teacher')));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.class')));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.lesson')));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.course')));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.room')));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.substitute')));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.type')));
+						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.remarks')));
 						$tb->appendChild($tableHeadRow);
 
 						foreach ($rows as $row)
@@ -143,16 +141,16 @@
 							$tb->appendChild($tableRow);
 						}
 					} else {
-						// Ueberschrift mit der Datumsangabe
+						// Heading with date
 						$h3 = $table->createElement('h3', $headings->item($headingCounter)->nodeValue);
 						$table->appendChild($h3);
-						// Ueberschrift zu den Nachrichten zum Tag
-						$h4 = $table->createElement('h4', "Nachrichten zum Tag");
+						// Heading for Motd
+						$h4 = $table->createElement('h4', $this->pi_getLL('heading.motd'));
 						$table->appendChild($h4);
 						$headingCounter++;
 
 						if ($this->conf['showMotd'] == 1) {
-						// Nachrichten zum Tag
+							// Nachrichten zum Tag
 							foreach ($rows as $row)
 							{
 								$cols = $row->getElementsByTagName('td');
@@ -171,8 +169,12 @@
 			return $plans;
 		}
 
+		protected function formatMotd() {
+
+		}
+
 		/**
-		 * Plaene fuer diese und die folgende Woche
+		 * Plans for this and the following week
 		 *
 		 * @param $weeks
 		 * @return boolean

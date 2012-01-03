@@ -5,12 +5,31 @@
 		<description>Language labels for plugin &quot;tx_vertretungsplan_pi1&quot;</description>
 	</meta>
 	<data type="array">
-		<languageKey index="default" type="array">
-			<label index="list_mode_1">Mode 1</label>
-			<label index="list_mode_2">Mode 2</label>
-			<label index="list_mode_3">Mode 3</label>
-			<label index="back">Back</label>
-			<label index="submit_button_label">Click here to submit value</label>
+		<languageKey index="en" type="array">
+			<label index="th.new">New</label>
+			<label index="th.date">Date</label>
+			<label index="th.teacher">Teacher</label>
+			<label index="th.class">Class</label>
+			<label index="th.lesson">Lesson</label>
+			<label index="th.course">Course</label>
+			<label index="th.room">Room</label>
+			<label index="th.substitute">Substitute</label>
+			<label index="th.type">Type</label>
+			<label index="th.remarks">Remarks</label>
+			<label index="heading.motd">News for the day</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="th.new">Neu</label>
+			<label index="th.date">Datum</label>
+			<label index="th.teacher">Lehrkraft</label>
+			<label index="th.class">Klasse</label>
+			<label index="th.lesson">Stunde</label>
+			<label index="th.course">Fach</label>
+			<label index="th.room">Raum</label>
+			<label index="th.substitute">Vertretung</label>
+			<label index="th.type">Art</label>
+			<label index="th.remarks">Bemerkungen</label>
+			<label index="heading.motd">Nachrichten zum Tag</label>
 		</languageKey>
 	</data>
 </T3locallang>
