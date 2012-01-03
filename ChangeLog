@@ -1,5 +1,6 @@
 2012-01-03 Ingo Pfennigstorf <i.pfennigstorf@gmail.com>
 	* Added localization
+	* Added possibility to limit the number of displayed days for the next week
 
 2011-12-19 Ingo Pfennigstorf <i.pfennigstorf@gmail.com>
 	* Added fakeWeek feature

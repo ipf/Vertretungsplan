@@ -29,12 +29,23 @@ Just include the frontend Plugin "Vertretungsplan" and upload the Untis-generate
 Fakeweek
 ========
 
-With the TypoScript Option 
+With the TypoScript Option
 
 ``plugin.tx_vertretungsplan_pi1.fakeWeek``
 
 you are able to simulate a specific week of the year.
 Instead of the current one the contents of this week's vertretungsplan is parsed
+
+================================================
+Number of days to be shown for the upcoming week
+================================================
+
+The TypoScript Option
+
+``plugin.tx_vertretungsplan_pi1.showDaysOfNextWeek``
+
+sets the number of days that are shown for the next week. The default value is set to 7 - but may be adjusted to any value between 0 (not displaying anything for the next week) and 7 (show all entries for the next week).
+Maybe setting this to 2 is a good value.
 
 ****************
 Why not Extbase?
@@ -54,4 +65,4 @@ Todo
 ****
 
 * Awareness of year-changes
-* Configuration how many days of the following week are show
+* Format messages of the day and remove the crappy table-stuff from them

@@ -67,7 +67,6 @@
 					}
 				}
 			}
-
 			$plaene = $this->getMatchingPlans($dirContainer, $startDirectory, $planDirectory, $planFileName);
 
 			$content = '';
@@ -82,15 +81,17 @@
 		/**
 		 * Get matching plans and parse them
 		 *
-		 * @param $startDirectory
-		 * @param $directories
-		 * @param $planDirectory
-		 * @param $planFileName
+		 * @param array $directories
+		 * @param string $startDirectory
+		 * @param string $planDirectory
+		 * @param string $planFileName
 		 * @return string
 		 */
 		protected function getMatchingPlans($directories, $startDirectory, $planDirectory, $planFileName) {
 
 			$plans = array();
+			// usually we have two directories - first is current week and the next one the upcoming
+			$planIndex = 0;
 			foreach ($directories as $directory) {
 
 				// Read plan
@@ -101,8 +102,14 @@
 				// Limit to tables
 				$tables = $planFile->getElementsByTagName('table');
 				$headings = $planFile->getElementsByTagName('big');
-				// Number of tables in the document
-				$nodeListLength = $tables->length;
+
+				// check if the plan for the next week may be limited to a specified amount of days (e.g. 2)
+				if ($this->conf['showDaysOfNextWeek'] < 7 && $planIndex === 1) {
+					$nodeListLength = (intval($this->conf['showDaysOfNextWeek'] * 2));
+				} else {
+					// Number of tables in the document
+					$nodeListLength = $tables->length;
+				}
 				// Helper for the headings
 				$headingCounter = 0;
 
@@ -165,12 +172,20 @@
 					$table->appendChild($tb);
 					array_push($plans, $table->saveHTML());
 				}
+				$planIndex += 1;
 			}
 			return $plans;
 		}
 
-		protected function formatMotd() {
-
+		/**
+		 * Modify the Message of the day for proper and valid output
+		 *
+		 * @TODO beautify the motd
+		 * @param string $message
+		 * @return string formatted message
+		 */
+		protected function formatMotd($message) {
+			return $message;
 		}
 
 		/**
