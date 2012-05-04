@@ -1,3 +1,6 @@
+2012-05-03 Ingo Pfennigsotrf <i.pfennigstorf@gmail.com>
+	* Changed Documentation and file structure
+
 2012-01-03 Ingo Pfennigstorf <i.pfennigstorf@gmail.com>
 	* Added localization
 	* Added possibility to limit the number of displayed days for the next week

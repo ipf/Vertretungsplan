@@ -46,18 +46,18 @@
 			$this->conf = $conf;
 			$this->pi_setPiVarDefaults();
 			$this->pi_loadLL();
-			// Configuring so caching is not expected.
+				// Configuring so caching is not expected.
 			$this->pi_USER_INT_obj = 1;
 			$startDirectory = $this->conf['storageFolder'];
 
 			$planDirectory = '/w/';
 			$planFileName = 'w00000.htm';
 
-			// read all contents from a specified directory
+				// read all contents from a specified directory
 			$files = scandir($startDirectory);
 
 			$dirContainer = Array();
-			// iterate through all folders and add them to an array
+				// iterate through all folders and add them to an array
 			foreach ($files as $input) {
 
 				if (is_dir($startDirectory . $input) && intval($input) > 0) {
@@ -90,7 +90,7 @@
 		protected function getMatchingPlans($directories, $startDirectory, $planDirectory, $planFileName) {
 
 			$plans = array();
-			// usually we have two directories - first is current week and the next one the upcoming
+				// usually we have two directories - first is current week and the next one the upcoming
 			$planIndex = 0;
 			foreach ($directories as $directory) {
 
@@ -103,14 +103,14 @@
 				$tables = $planFile->getElementsByTagName('table');
 				$headings = $planFile->getElementsByTagName('big');
 
-				// check if the plan for the next week may be limited to a specified amount of days (e.g. 2)
+					// check if the plan for the next week may be limited to a specified amount of days (e.g. 2)
 				if ($this->conf['showDaysOfNextWeek'] < 7 && $planIndex === 1) {
-					$nodeListLength = (intval($this->conf['showDaysOfNextWeek'] * 2));
+					$nodeListLength = (intval($this->conf['showDaysOfNextWeek']) * 2);
 				} else {
-					// Number of tables in the document
+						// Number of tables in the document
 					$nodeListLength = $tables->length;
 				}
-				// Helper for the headings
+					// Helper for the headings
 				$headingCounter = 0;
 
 				for ($j = 0; $j < $nodeListLength; $j++) {
@@ -121,10 +121,10 @@
 					$table->formatOutput = TRUE;
 					$tb = $table->createElement('table');
 
-					// Odd tables show the substitue plans
-					// Even tables show the messages of the day
+						// Odd tables show the substitute plans
+						// Even tables show the messages of the day
 					if ($j % 2 !== 0) {
-						// Tableheads
+							// Tableheads
 						$tableHeadRow = $table->createElement('tr');
 						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.new')));
 						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.date')));
@@ -148,22 +148,24 @@
 							$tb->appendChild($tableRow);
 						}
 					} else {
-						// Heading with date
+							// Heading with date
 						$h3 = $table->createElement('h3', $headings->item($headingCounter)->nodeValue);
 						$table->appendChild($h3);
-						// Heading for Motd
+							// Heading for Motd
 						$h4 = $table->createElement('h4', $this->pi_getLL('heading.motd'));
 						$table->appendChild($h4);
 						$headingCounter++;
 
 						if ($this->conf['showMotd'] == 1) {
 							// Messages of the day
-							foreach ($rows as $row)
-							{
+							foreach ($rows as $row) {
 								$cols = $row->getElementsByTagName('td');
-								$tableRow = $table->createElement('tr');
+								$tableRow = $table->createElement('div');
 								for ($i = 0; $i <= 1; $i++) {
-									$tableRow->appendChild($table->createElement('td', $cols->item($i)->nodeValue));
+									$metaContents = $this->formatMotd($cols->item($i)->nodeValue, $i);
+									if ($metaContents['contents'] !== '') {
+										$tableRow->appendChild($table->createElement($metaContents['tag'], $metaContents['contents']));
+									}
 								}
 								$tb->appendChild($tableRow);
 							}
@@ -180,12 +182,23 @@
 		/**
 		 * Modify the Message of the day for proper and valid output
 		 *
-		 * @TODO beautify the motd
+		 * @TODO Why no output on contents?
 		 * @param string $message
-		 * @return string formatted message
+		 * @param int $counter
+		 * @return array formatted message
 		 */
-		protected function formatMotd($message) {
-			return $message;
+		protected function formatMotd($message, $counter) {
+			$newMessage = array();
+
+			if ($counter % 2 === 0) {
+				$tempMessage = html_entity_decode(utf8_decode($message));
+				$newMessage['tag'] = 'h4';
+				$newMessage['contents'] = str_replace('&nbsp;&nbsp;', '', $tempMessage);
+			} else {
+				$newMessage['tag'] = 'span';
+				$newMessage['contents'] = $message;
+			}
+			return $newMessage;
 		}
 
 		/**

@@ -38,7 +38,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"fa2c";s:10:"Readme.rst";s:4:"fb89";s:12:"ext_icon.gif";s:4:"0cef";s:17:"ext_localconf.php";s:4:"c149";s:14:"ext_tables.php";s:4:"12f3";s:16:"locallang_db.xml";s:4:"a58b";s:36:"pi1/class.tx_vertretungsplan_pi1.php";s:4:"7061";s:17:"pi1/locallang.xml";s:4:"1b52";s:36:"static/vertretungsplan/constants.txt";s:4:"c9f8";s:32:"static/vertretungsplan/setup.txt";s:4:"3814";}',
+	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"fa2c";s:10:"Manual.rst";s:4:"fb89";s:12:"ext_icon.gif";s:4:"0cef";s:17:"ext_localconf.php";s:4:"c149";s:14:"ext_tables.php";s:4:"12f3";s:16:"locallang_db.xml";s:4:"a58b";s:36:"pi1/class.tx_vertretungsplan_pi1.php";s:4:"7061";s:17:"pi1/locallang.xml";s:4:"1b52";s:36:"static/vertretungsplan/constants.txt";s:4:"c9f8";s:32:"static/vertretungsplan/setup.txt";s:4:"3814";}',
 	'suggests' => array(
 	),
 );
