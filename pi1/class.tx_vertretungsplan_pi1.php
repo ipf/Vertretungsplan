@@ -49,7 +49,6 @@
 				// Configuring so caching is not expected.
 			$this->pi_USER_INT_obj = 1;
 			$startDirectory = $this->conf['storageFolder'];
-
 			$planDirectory = '/w/';
 			$planFileName = 'w00000.htm';
 
@@ -88,7 +87,6 @@
 		 * @return string
 		 */
 		protected function getMatchingPlans($directories, $startDirectory, $planDirectory, $planFileName) {
-
 			$plans = array();
 				// usually we have two directories - first is current week and the next one the upcoming
 			$planIndex = 0;
@@ -123,7 +121,7 @@
 
 						// Odd tables show the substitute plans
 						// Even tables show the messages of the day
-					if ($j % 2 !== 0) {
+					if ($j % 2 !== 1) {
 							// Tableheads
 						$tableHeadRow = $table->createElement('tr');
 						$tableHeadRow->appendChild($table->createElement('th', $this->pi_getLL('th.new')));
@@ -143,8 +141,11 @@
 							$cols = $row->getElementsByTagName('td');
 							$tableRow = $table->createElement('tr');
 							for ($i = 0; $i < 10; $i++) {
-								$tableRow->appendChild($table->createElement('td', $cols->item($i)->nodeValue));
+								if ($cols->item($i)->nodeValue != 'Vertretungen sind nicht freigegeben') {
+									$tableRow->appendChild($table->createElement('td', $cols->item($i)->nodeValue));
+								}
 							}
+
 							$tb->appendChild($tableRow);
 						}
 					} else {
@@ -221,7 +222,6 @@
 			if ($weeks == $currentWeek || $weeks == $nextWeek) {
 				$return = TRUE;
 			}
-
 			return $return;
 		}
 	}
