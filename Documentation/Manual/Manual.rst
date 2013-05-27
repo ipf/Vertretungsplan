@@ -1,6 +1,6 @@
-*****************************************
-TYPO3 Extension for Untis Vertretungsplan
-*****************************************
+***********************************
+TYPO3 Extension for Vertretungsplan
+***********************************
 
 What does it do?
 ================
@@ -43,11 +43,6 @@ The TypoScript Option
 sets the number of days that are shown for the next week. The default value is set to 7 - but may be adjusted to any value between 0 (not displaying anything for the next week) and 7 (show all entries for the next week).
 Maybe setting this to 2 is a good value.
 
-Why not Extbase?
-================
-
-Extbase is cool! Really. But it would nowadays be the total overkill for this small Extension, so I decided to do it in the oldschool piBase way.
-
 Development
 ===========
 
@@ -62,4 +57,3 @@ Todo
 * Awareness of year-changes
 * Format messages of the day and remove the crappy table-stuff from them
 * Add caching via Caching Framework
-* Maybe convert it to Extbase ...

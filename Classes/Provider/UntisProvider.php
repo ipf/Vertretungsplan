@@ -31,9 +31,15 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 		$plan = file_get_contents($this->directory);
 		$plan = utf8_encode($plan);
 		$plan = str_replace('&nbsp;', '', $plan);
+
 		$dom = new DOMDocument();
 		$dom->loadHTML($plan);
-		$dom->getElementsByTagName('body')->item(0);
+
+		$xpath = new DOMXPath($dom);
+
+		/** @var DOMNodeList */
+		$tags = $xpath->query('//*[@id="vertretung"]')->item(0);
+
 		return $dom->saveHTML();
 	}
 
