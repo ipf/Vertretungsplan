@@ -75,9 +75,14 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 		$storageDirectory = $this->settings['storageDirectory'];
 
 		if (!empty($storageDirectory)) {
-			return $storageDirectory;
+			$directory = t3lib_div::getFileAbsFileName($storageDirectory);
+			if (is_dir($directory)) {
+				return $directory;
+			} else {
+				throw new t3lib_error_Exception('The configured directory ' . $directory . ' does not exist', 1369665059);
+			}
 		} else {
-			throw new t3lib_error_Exception('No storageDirectory configured or directory ' . $storageDirectory . ' not existing', 1369663056);
+			throw new t3lib_error_Exception('No storageDirectory configured', 1369663056);
 		}
 
 	}
