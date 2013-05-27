@@ -13,7 +13,7 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 * @return String
 	 */
 	public function getDirectory() {
-		return $this->directory . self::PLANFILE;
+		return $this->directory . date('W') . '/' . self::PLANFILE;
 	}
 
 	/**
@@ -21,14 +21,24 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 * @return String
 	 */
 	public function setDirectory($directory) {
-		$this->directory = $directory . self::PLANFILE;
+		$this->directory = $directory . date('W') . '/' . self::PLANFILE;
 	}
 
 	/**
 	 * @return String
 	 */
 	public function readPlan() {
-		return 'Untis';
+		$plan = file_get_contents($this->directory);
+		$plan = utf8_encode($plan);
+		$plan = str_replace('&nbsp;', '', $plan);
+		$dom = new DOMDocument();
+		$dom->loadHTML($plan);
+		$dom->getElementsByTagName('body')->item(0);
+		return $dom->saveHTML();
+	}
+
+	protected function processPlan($plan) {
+
 	}
 
 }

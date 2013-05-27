@@ -21,6 +21,11 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	protected $settings;
 
 	/**
+	 * @var
+	 */
+	protected $cacheInstance;
+
+	/**
 	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
@@ -36,6 +41,9 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 		$this->provider = $this->getProvider();
 
 		$this->provider->setDirectory($this->getStorageDirectory());
+		//t3lib_cache::initializeCachingFramework();
+
+		//$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('vertretungsplan_plancache');
 	}
 
 	/**
@@ -68,6 +76,7 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	/**
 	 * Get directory where the plans are stored
 	 *
+	 * @throws t3lib_error_Exception
 	 * @return String
 	 */
 	protected function getStorageDirectory() {
