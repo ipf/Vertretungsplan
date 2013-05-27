@@ -7,21 +7,28 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 
 	protected $directory;
 
+	const PLANFILE = 'w/w00000.htm';
+
 	/**
 	 * @return String
 	 */
-	public function getDirectory()
-	{
-		// TODO: Implement getDirectory() method.
+	public function getDirectory() {
+		return $this->directory . self::PLANFILE;
 	}
 
 	/**
 	 * @param $directory
-	 * @return mixed
+	 * @return String
 	 */
-	public function setDirectory($directory)
-	{
-		// TODO: Implement setDirectory() method.
+	public function setDirectory($directory) {
+		$this->directory = $directory . self::PLANFILE;
+	}
+
+	/**
+	 * @return String
+	 */
+	public function readPlan() {
+		return 'Untis';
 	}
 
 }

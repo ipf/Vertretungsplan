@@ -1,9 +1,11 @@
 plugin {
-	tx_vertretungsplan_pi1 {
-		storageFolder = {$plugin.tx_vertretungsplan_pi1.storageFolder}
-		showMotd = {$plugin.tx_vertretungsplan_pi1.showMotd}
-		fakeWeek = 0
-		showDaysOfNextWeek = 7
-		provider = Untis
+	tx_vertretungsplan {
+		settings {
+			storageDirectory = {$plugin.tx_vertretungsplan.settings.storageDirectory}
+			showMotd = {$plugin.tx_vertretungsplan_pi1.showMotd}
+			fakeWeek = 0
+			showDaysOfNextWeek = 7
+			provider = Untis
+		}
 	}
 }

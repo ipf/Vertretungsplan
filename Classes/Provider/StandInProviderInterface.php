@@ -12,8 +12,13 @@ interface Tx_Vertretungsplan_Provider_StandInProviderInterface {
 
 	/**
 	 * @param $directory
-	 * @return mixed
+	 * @return void
 	 */
 	public function setDirectory($directory);
+
+	/**
+	 * @return String
+	 */
+	public function readPlan();
 
 }
