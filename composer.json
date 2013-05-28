@@ -1,0 +1,17 @@
+{
+    "name": "ipf/vertretungsplan",
+    "description": "StandIn schedule parser",
+	"config": {
+		"vendor-dir": "Classes/Contrib/"
+	},
+    "require": {
+        "wa72/htmlpagedom": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ingo Pfennigstorf",
+            "email": "i.pfennigstorf@gmail.com"
+        }
+    ]
+}
