@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Provider and Parser for Untis Schedules
  */
 
 require t3lib_extMgm::extPath('vertretungsplan') . 'Classes/Contrib/autoload.php';

@@ -2,7 +2,6 @@ plugin {
 	tx_vertretungsplan {
 		settings {
 			storageDirectory = fileadmin/Untis/
-			showMotd = 1
 		}
 	}
 }

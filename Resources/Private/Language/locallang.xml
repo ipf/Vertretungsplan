@@ -2,7 +2,7 @@
 <T3locallang>
 	<meta type="array">
 		<type>module</type>
-		<description>Language labels for plugin &quot;tx_vertretungsplan_pi1&quot;</description>
+		<description>Language labels for plugin &quot;tx_vertretungsplan&quot;</description>
 	</meta>
 	<data type="array">
 		<languageKey index="en" type="array">
