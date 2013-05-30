@@ -4,9 +4,9 @@
 CREATE TABLE cf_vertretungsplan_plancache (
   id         INT(11) UNSIGNED             NOT NULL AUTO_INCREMENT,
   identifier VARCHAR(250) DEFAULT ''      NOT NULL,
-  crdate     INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+  crdate     int(11) unsigned default '0',
   content    MEDIUMBLOB,
-  lifetime   INT(11) UNSIGNED DEFAULT '0' NOT NULL,
+  lifetime   int(11) unsigned default '0',
   PRIMARY KEY (id),
   KEY cache_id (identifier)
 ) ENGINE = InnoDB;
