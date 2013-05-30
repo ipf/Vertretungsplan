@@ -33,8 +33,8 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 * @return String
 	 */
 	public function readPlan() {
-		$plan = file_get_contents($this->directory);
-		return $this->processPlan(utf8_encode($plan));
+		$plan = utf8_encode(file_get_contents($this->directory));
+		return $this->processPlan($plan);
 	}
 
 	/**
@@ -44,6 +44,10 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 * @return String
 	 */
 	protected function processPlan($plan) {
+
+		$pattern = '/( \| )*<a href="#\d">\[.*?<\/a>( \| )*/';
+		$plan = preg_replace($pattern, '', $plan);
+
 		/**
 		 * @var \Wa72\HtmlPageDom\HtmlPage
 		 */
