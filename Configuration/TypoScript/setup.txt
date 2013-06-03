@@ -4,6 +4,9 @@ plugin {
 			storageDirectory = {$plugin.tx_vertretungsplan.settings.storageDirectory}
 			showDaysOfNextWeek = 7
 			provider = Untis
+			Untis {
+				daysOfNextWeek = 3
+			}
 		}
 	}
 }

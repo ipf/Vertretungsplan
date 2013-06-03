@@ -59,11 +59,14 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	 */
 	protected function getProvider() {
 		$providerName = $this->settings['provider'];
+
+		$providerSettings = $this->getProviderSettings($providerName);
+
 		if (!empty($providerName)) {
 			$providerClassName = 'Tx_Vertretungsplan_Provider_'. $providerName . 'Provider';
 
 			if (class_exists($providerClassName)) {
-				$provider = t3lib_div::makeInstance($providerClassName);
+				$provider = t3lib_div::makeInstance($providerClassName, $providerSettings);
 			} else {
 				throw new t3lib_error_Exception('Classname ' + $providerClassName + ' of Provider not found', 1369660886);
 			}
@@ -71,6 +74,21 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 			throw new t3lib_error_Exception('No Provider configured in TypoScript', 1369645294);
 		}
 		return $provider;
+	}
+
+	/**
+	 * Get the settings from TypoScript if they exist
+	 * else return an empty array
+	 *
+	 * @param $providerName
+	 * @return array
+	 */
+	protected function getProviderSettings($providerName) {
+		if (is_array($this->settings[$providerName])) {
+			return $this->settings[$providerName];
+		} else {
+			return Array();
+		}
 	}
 
 	/**

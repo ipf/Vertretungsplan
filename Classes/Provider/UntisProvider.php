@@ -8,15 +8,29 @@ require t3lib_extMgm::extPath('vertretungsplan') . 'Classes/Contrib/autoload.php
 
 class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Provider_StandInProviderInterface {
 
+	/**
+	 * @var String directory where the plans are stored
+	 */
 	protected $directory;
 
 	const PLANFILE = 'w/w00000.htm';
 
 	/**
+	 * @var int week for the plan to be checked
+	 */
+	protected $weekToCheck;
+
+	public function __construct($settings) {
+		if (empty($this->weekToCheck)) {
+			$this->weekToCheck = date('W');
+		}
+	}
+
+	/**
 	 * @return String
 	 */
 	public function getDirectory() {
-		return $this->directory . date('W') . '/' . self::PLANFILE;
+		return $this->directory . $this->weekToCheck . '/' . self::PLANFILE;
 	}
 
 	/**
@@ -24,7 +38,7 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 * @return String
 	 */
 	public function setDirectory($directory) {
-		$this->directory = $directory . date('W') . '/' . self::PLANFILE;
+		$this->directory = $directory . $this->weekToCheck . '/' . self::PLANFILE;
 	}
 
 	/**
