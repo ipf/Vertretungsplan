@@ -21,7 +21,7 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	protected $settings;
 
 	/**
-	 * @var
+	 * @var t3lib_cache_frontend_AbstractFrontend
 	 */
 	protected $cacheInstance;
 
@@ -41,16 +41,25 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 		$this->provider = $this->getProvider();
 
 		$this->provider->setDirectory($this->getStorageDirectory());
-		//t3lib_cache::initializeCachingFramework();
+		t3lib_cache::initializeCachingFramework();
 
-		//$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('vertretungsplan_plancache');
+		$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('vertretungsplan_plancache');
 	}
 
 	/**
 	 * Read the plan from the provider and pass it to the view
 	 */
 	public function indexAction() {
-		$this->view->assign('plan', $this->provider->readPlan());
+		$planHash = sha1(file_get_contents($this->provider->getDirectory()));
+
+		if ($this->cacheInstance->has($planHash)) {
+			$plan = $this->cacheInstance->get($planHash);
+		} else {
+			$plan = $this->provider->readPlan();
+			$this->cacheInstance->set($planHash, $plan);
+		}
+
+		$this->view->assign('plan', $plan);
 	}
 
 	/**
