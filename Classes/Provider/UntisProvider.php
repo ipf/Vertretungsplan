@@ -20,7 +20,15 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 */
 	protected $weekToCheck;
 
+	/**
+	 * @var array
+	 */
+	protected $settings;
+
 	public function __construct($settings) {
+
+		$this->settings = $settings;
+
 		if (empty($this->weekToCheck)) {
 			$this->weekToCheck = date('W');
 		}

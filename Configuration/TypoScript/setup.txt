@@ -5,7 +5,7 @@ plugin {
 			showDaysOfNextWeek = 7
 			provider = Untis
 			Untis {
-				daysOfNextWeek = 3
+				showNextWeek = 1
 			}
 		}
 	}
