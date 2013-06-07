@@ -56,6 +56,7 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 */
 	public function readPlan() {
 		$plan = utf8_encode(file_get_contents($this->location));
+		self::readPlanForNextWeek();
 		return $this->processPlan($plan);
 	}
 
@@ -78,8 +79,18 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 		return $p;
 	}
 
-	protected function readPlanForNextWeek() {
+	/**
+	 * @param int $weekOffset
+	 * @return int
+	 */
+	protected function determineWeekToCheck($weekOffset = 0) {
+		$week = intval(date('W')) + intval($weekOffset);
+		return $week;
+	}
 
+	protected function readPlanForNextWeek() {
+		$this->weekToCheck = self::determineWeekToCheck(1);
+		debug(self::getLocation());
 	}
 
 }

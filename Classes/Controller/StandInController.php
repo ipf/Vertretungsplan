@@ -12,13 +12,9 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 
 	/**
 	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+	 * @inject
 	 */
 	protected $configurationManager;
-
-	/**
-	 * @var array
-	 */
-	protected $settings;
 
 	/**
 	 * @var t3lib_cache_frontend_AbstractFrontend
@@ -26,18 +22,9 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	protected $cacheInstance;
 
 	/**
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
-	 * @return void
-	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
-	}
-
-	/**
 	 * Initializes defaults
 	 */
 	public function initializeAction() {
-		$this->settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 		$this->provider = $this->getProvider();
 
 		$this->provider->setLocation($this->getStorageLocation());
@@ -94,7 +81,9 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	 */
 	protected function getProviderSettings($providerName) {
 		if (is_array($this->settings[$providerName])) {
-			return $this->settings[$providerName];
+			$providerSettings = $this->settings[$providerName];
+			$providerSettings = t3lib_div::array_merge_recursive_overrule($providerSettings, array('storageLocation' => $this->settings['storageLocation']));
+			return $providerSettings;
 		} else {
 			return Array();
 		}
