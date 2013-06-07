@@ -11,7 +11,7 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	/**
 	 * @var String directory where the plans are stored
 	 */
-	protected $directory;
+	protected $location;
 
 	const PLANFILE = 'w/w00000.htm';
 
@@ -37,16 +37,16 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	/**
 	 * @return String
 	 */
-	public function getDirectory() {
-		return $this->directory . $this->weekToCheck . '/' . self::PLANFILE;
+	public function getLocation() {
+		return $this->location . $this->weekToCheck . '/' . self::PLANFILE;
 	}
 
 	/**
-	 * @param $directory
+	 * @param $location
 	 * @return String
 	 */
-	public function setDirectory($directory) {
-		$this->directory = $directory . $this->weekToCheck . '/' . self::PLANFILE;
+	public function setLocation($location) {
+		$this->location = $location . $this->weekToCheck . '/' . self::PLANFILE;
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 * @return String
 	 */
 	public function readPlan() {
-		$plan = utf8_encode(file_get_contents($this->directory));
+		$plan = utf8_encode(file_get_contents($this->location));
 		return $this->processPlan($plan);
 	}
 
@@ -76,6 +76,10 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 		$domCrawler = t3lib_div::makeInstance('\Wa72\HtmlPageDom\HtmlPage', $plan);
 		$p = $domCrawler->filter('#vertretung')->getInnerHtml();
 		return $p;
+	}
+
+	protected function readPlanForNextWeek() {
+
 	}
 
 }

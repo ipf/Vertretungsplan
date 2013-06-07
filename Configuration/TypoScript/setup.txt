@@ -1,7 +1,7 @@
 plugin {
 	tx_vertretungsplan {
 		settings {
-			storageDirectory = {$plugin.tx_vertretungsplan.settings.storageDirectory}
+			storageLocation = {$plugin.tx_vertretungsplan.settings.storageLocation}
 			showDaysOfNextWeek = 7
 			provider = Untis
 			Untis {

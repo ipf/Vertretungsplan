@@ -8,13 +8,13 @@ interface Tx_Vertretungsplan_Provider_StandInProviderInterface {
 	/**
 	 * @return String
 	 */
-	public function getDirectory();
+	public function getLocation();
 
 	/**
-	 * @param $directory
+	 * @param String $location
 	 * @return void
 	 */
-	public function setDirectory($directory);
+	public function setLocation($location);
 
 	/**
 	 * @return String

@@ -40,7 +40,7 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 		$this->settings = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 		$this->provider = $this->getProvider();
 
-		$this->provider->setDirectory($this->getStorageDirectory());
+		$this->provider->setLocation($this->getStorageLocation());
 		t3lib_cache::initializeCachingFramework();
 
 		$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('vertretungsplan_plancache');
@@ -50,7 +50,7 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	 * Read the plan from the provider and pass it to the view
 	 */
 	public function indexAction() {
-		$planHash = sha1(file_get_contents($this->provider->getDirectory()));
+		$planHash = sha1(file_get_contents($this->provider->getLocation()));
 
 		if ($this->cacheInstance->has($planHash)) {
 			$plan = $this->cacheInstance->get($planHash);
@@ -106,19 +106,19 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	 * @throws t3lib_error_Exception
 	 * @return String
 	 */
-	protected function getStorageDirectory() {
+	protected function getStorageLocation() {
 
-		$storageDirectory = $this->settings['storageDirectory'];
+		$storageLocation = $this->settings['storageLocation'];
 
-		if (!empty($storageDirectory)) {
-			$directory = t3lib_div::getFileAbsFileName($storageDirectory);
-			if (is_dir($directory)) {
-				return $directory;
+		if (!empty($storageLocation)) {
+			$location = t3lib_div::getFileAbsFileName($storageLocation);
+			if (is_dir($location)) {
+				return $location;
 			} else {
-				throw new t3lib_error_Exception('The configured directory ' . $directory . ' does not exist', 1369665059);
+				throw new t3lib_error_Exception('The configured location ' . $location . ' does not exist', 1369665059);
 			}
 		} else {
-			throw new t3lib_error_Exception('No storageDirectory configured', 1369663056);
+			throw new t3lib_error_Exception('No storageLocation configured', 1369663056);
 		}
 
 	}
