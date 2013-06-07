@@ -14,22 +14,12 @@ Installation
 Simply Install the Extension and include the static TypoScript.
 The default path for the Vertretungsplan's files is fileadmin/Untis/ but you can adapt it to your preferred path in TypoScript with the constant
 
-``plugin.tx_vertretungsplan_pi1.storageFolder = your/path/here``
+``plugin.tx_vertretungsplan.settings.storageFolder = your/path/here``
 
 determines whether the news for the day are shown or not. Sometimes it is not desired to show the teachers that are not at school.
 
 Just include the frontend Plugin "Vertretungsplan" and upload the Untis-generated files and the content will be shown in the frontend.
 
-
-Number of days to be shown for the upcoming week
-------------------------------------------------
-
-The TypoScript Option
-
-``plugin.tx_vertretungsplan_pi1.showDaysOfNextWeek``
-
-sets the number of days that are shown for the next week. The default value is set to 7 - but may be adjusted to any value between 0 (not displaying anything for the next week) and 7 (show all entries for the next week).
-Maybe setting this to 2 is a good value.
 
 Development
 ===========
@@ -40,6 +30,4 @@ The repository can be found `here <https://github.com/ipf/Vertretungsplan>`_.
 Todo
 ====
 
-* Insert next week's plan
 * Awareness of year-changes
-* Add caching via Caching Framework
