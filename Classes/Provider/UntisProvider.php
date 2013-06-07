@@ -39,7 +39,6 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 */
 	public function getLocation() {
 		$location = $this->settings['storageLocation'] . $this->weekToCheck . '/' . self::PLANFILE;
-		$this->settings['storageLocation'] . $this->weekToCheck . '/' . self::PLANFILE;
 		return $location;
 	}
 
@@ -57,9 +56,19 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 * @return String
 	 */
 	public function readPlan() {
-		$plan = utf8_encode(file_get_contents(self::getLocation()));
-		self::readPlanForNextWeek();
-		return $this->processPlan($plan);
+
+		$i = 0;
+
+		$processedPlan = '';
+
+		while ($i < 2) {
+			$this->weekToCheck = $this->determineWeekToCheck($i);
+			$plan = utf8_encode(file_get_contents(self::getLocation()));
+			$processedPlan .= $this->processPlan($plan);
+			$i++;
+		}
+
+		return $processedPlan;
 	}
 
 	/**
