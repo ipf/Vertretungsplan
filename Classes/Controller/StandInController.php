@@ -1,23 +1,31 @@
 <?php
+
+namespace Ipf\Vertretungsplan\Controller;
+
 /**
  * Controller
  */
 
-class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Controller_ActionController {
+class StandInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * @var Tx_Vertretungsplan_Provider_StandInProviderInterface
+	 * @var Ipf\Vertretungsplan\Provider\StandInProviderInterface
 	 */
 	protected $provider;
 
 	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+	 * @var String
+	 */
+	protected $providerName;
+
+	/**
+	 * @var TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
 	 * @inject
 	 */
 	protected $configurationManager;
 
 	/**
-	 * @var t3lib_cache_frontend_AbstractFrontend
+	 * @var TYPO3\CMS\Core\Cache\Frontend\AbstractFrontend
 	 */
 	protected $cacheInstance;
 
@@ -27,8 +35,10 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	public function initializeAction() {
 		$this->provider = $this->getProvider();
 
+		$this->addJavaScriptToHead();
+
 		$this->provider->setLocation($this->getStorageLocation());
-		t3lib_cache::initializeCachingFramework();
+		\TYPO3\CMS\Core\Cache\Cache::initializeCachingFramework();
 
 		$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('vertretungsplan_plancache');
 	}
@@ -50,8 +60,8 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	}
 
 	/**
-	 * @throws t3lib_error_Exception
-	 * @return Tx_Vertretungsplan_Provider_StandInProviderInterface
+	 * @throws \TYPO3\CMS\Core\Error\Exception
+	 * @return \Ipf\Vertretungsplan\Provider\StandInProviderInterface
 	 */
 	protected function getProvider() {
 		$providerName = $this->settings['provider'];
@@ -59,15 +69,15 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 		$providerSettings = $this->getProviderSettings($providerName);
 
 		if (!empty($providerName)) {
-			$providerClassName = 'Tx_Vertretungsplan_Provider_'. $providerName . 'Provider';
-
+			$providerClassName = 'Ipf\Vertretungsplan\Provider\\'. $providerName . 'Provider';
+			$this->providerName = $providerName;
 			if (class_exists($providerClassName)) {
-				$provider = t3lib_div::makeInstance($providerClassName, $providerSettings);
+				$provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($providerClassName, $providerSettings);
 			} else {
-				throw new t3lib_error_Exception('Classname ' + $providerClassName + ' of Provider not found', 1369660886);
+				throw new \TYPO3\CMS\Core\Error\Exception('Classname ' + $providerClassName + ' of Provider not found', 1369660886);
 			}
 		} else {
-			throw new t3lib_error_Exception('No Provider configured in TypoScript', 1369645294);
+			throw new \TYPO3\CMS\Core\Error\Exception('No Provider configured in TypoScript', 1369645294);
 		}
 		return $provider;
 	}
@@ -82,7 +92,7 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	protected function getProviderSettings($providerName) {
 		if (is_array($this->settings[$providerName])) {
 			$providerSettings = $this->settings[$providerName];
-			$providerSettings = t3lib_div::array_merge_recursive_overrule($providerSettings, array('storageLocation' => $this->settings['storageLocation']));
+			$providerSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($providerSettings, array('storageLocation' => $this->settings['storageLocation']));
 			return $providerSettings;
 		} else {
 			return Array();
@@ -92,7 +102,7 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 	/**
 	 * Get directory where the plans are stored
 	 *
-	 * @throws t3lib_error_Exception
+	 * @throws \TYPO3\CMS\Core\Error\ErrorException
 	 * @return String
 	 */
 	protected function getStorageLocation() {
@@ -100,14 +110,30 @@ class Tx_Vertretungsplan_Controller_StandInController extends Tx_Extbase_MVC_Con
 		$storageLocation = $this->settings['storageLocation'];
 
 		if (!empty($storageLocation)) {
-			$location = t3lib_div::getFileAbsFileName($storageLocation);
+			$location = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($storageLocation);
 			if (is_dir($location)) {
 				return $location;
 			} else {
-				throw new t3lib_error_Exception('The configured location ' . $location . ' does not exist', 1369665059);
+				throw new \TYPO3\CMS\Core\Error\ErrorException('The configured location ' . $location . ' does not exist', 1369665059);
 			}
 		} else {
-			throw new t3lib_error_Exception('No storageLocation configured', 1369663056);
+			throw new \TYPO3\CMS\Core\Error\ErrorException('No storageLocation configured', 1369663056);
+		}
+
+	}
+
+	/**
+	 * Adds JavaScript to the page
+	 *
+	 * @return void
+	 */
+	protected function addJavaScriptToHead() {
+
+		$fileName = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('vertretungsplan') . 'Resources/Public/JavaScript/Provider/' . $this->providerName . '/Vertretungsplan.js';
+
+		if (file_exists($fileName)) {
+			$javaScript = '<script src="' . $fileName. '"></script>';
+			$this->response->addAdditionalHeaderData($javaScript);
 		}
 
 	}

@@ -1,9 +1,12 @@
 <?php
+
+namespace Ipf\Vertretungsplan\Provider;
+
 /**
  *
  */
 
-interface Tx_Vertretungsplan_Provider_StandInProviderInterface {
+interface StandInProviderInterface {
 
 	/**
 	 * @return String

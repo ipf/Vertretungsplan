@@ -1,25 +1,21 @@
 <?php
+
+namespace Ipf\Vertretungsplan\Tests\Unit\Provider;
+
 /**
  * Tests for Untis Provider
  */
 
-class Tx_Vertretungsplan_Tests_Unit_Provider_UntisProviderTest extends Tx_Phpunit_TestCase {
+class UntisProviderTest extends \Tx_Phpunit_TestCase {
 
 	/**
-	 * @var Tx_Vertretungsplan_Provider_UntisProvider
+	 * @var \Ipf\Vertretungsplan\Provider\UntisProvider
 	 */
 	public $fixture;
 
 	public function setUp() {
 		$settings = array();
-		$this->fixture = new Tx_Vertretungsplan_Provider_UntisProvider($settings);
-	}
-
-	/**
-	 * @test
-	 */
-	public function determineCurrentWeekCorrectly() {
-		$this->assertEquals(1, 1);
+		$this->fixture = new \Ipf\Vertretungsplan\Provider\UntisProvider($settings);
 	}
 
 }

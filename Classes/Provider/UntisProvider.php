@@ -1,18 +1,23 @@
 <?php
+
+namespace Ipf\Vertretungsplan\Provider;
 /**
  * Provider and Parser for Untis Schedules
  */
 
-require t3lib_extMgm::extPath('vertretungsplan') . 'Classes/Contrib/autoload.php';
+require \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('vertretungsplan') . 'Classes/Contrib/autoload.php';
 
 
-class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Provider_StandInProviderInterface {
+class UntisProvider implements StandInProviderInterface {
 
 	/**
 	 * @var String directory where the plans are stored
 	 */
 	protected $location;
 
+	/**
+	 * Location of the file for Untis
+	 */
 	const PLANFILE = 'w/w00000.htm';
 
 	/**
@@ -57,15 +62,12 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 */
 	public function readPlan() {
 
-		$i = 0;
-
 		$processedPlan = '';
 
-		while ($i < 2) {
+		for ($i = 0; $i < 2; $i++) {
 			$this->weekToCheck = $this->determineWeekToCheck($i);
 			$plan = utf8_encode(file_get_contents(self::getLocation()));
 			$processedPlan .= $this->processPlan($plan);
-			$i++;
 		}
 
 		return $processedPlan;
@@ -85,7 +87,7 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 		/**
 		 * @var \Wa72\HtmlPageDom\HtmlPage
 		 */
-		$domCrawler = t3lib_div::makeInstance('\Wa72\HtmlPageDom\HtmlPage', $plan);
+		$domCrawler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Wa72\HtmlPageDom\HtmlPage', $plan);
 		$p = $domCrawler->filter('#vertretung')->getInnerHtml();
 		return $p;
 	}
@@ -96,6 +98,9 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 */
 	protected function determineWeekToCheck($weekOffset = 0) {
 		$week = intval(date('W')) + intval($weekOffset);
+
+		// @TODO
+		if ($this->isNextWeekInNextYear($week)) {}
 		return $week;
 	}
 
@@ -104,6 +109,17 @@ class Tx_Vertretungsplan_Provider_UntisProvider implements Tx_Vertretungsplan_Pr
 	 */
 	protected function readPlanForNextWeek() {
 		$this->weekToCheck = self::determineWeekToCheck(1);
+	}
+
+	/**
+	 * Respect year changes
+	 * @TODO
+	 *
+	 * @param int $weekToCheck
+	 * @return bool
+	 */
+	protected function isNextWeekInNextYear($weekToCheck) {
+		return FALSE;
 	}
 
 }
