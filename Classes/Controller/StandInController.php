@@ -9,7 +9,7 @@ namespace Ipf\Vertretungsplan\Controller;
 class StandInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * @var Ipf\Vertretungsplan\Provider\StandInProviderInterface
+	 * @var \Ipf\Vertretungsplan\Provider\StandInProviderInterface
 	 */
 	protected $provider;
 
@@ -19,15 +19,20 @@ class StandInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	protected $providerName;
 
 	/**
-	 * @var TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
 	 * @inject
 	 */
 	protected $configurationManager;
 
 	/**
-	 * @var TYPO3\CMS\Core\Cache\Frontend\AbstractFrontend
+	 * @var \TYPO3\CMS\Core\Cache\Frontend\AbstractFrontend
 	 */
 	protected $cacheInstance;
+
+	/**
+	 * @var \TYPO3\CMS\Core\Page\PageRenderer
+	 */
+	protected $pageRenderer;
 
 	/**
 	 * Initializes defaults
@@ -36,6 +41,8 @@ class StandInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$this->provider = $this->getProvider();
 
 		$this->addJavaScriptToHead();
+
+		$this->pageRenderer = $pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
 
 		$this->provider->setLocation($this->getStorageLocation());
 		\TYPO3\CMS\Core\Cache\Cache::initializeCachingFramework();
@@ -132,8 +139,7 @@ class StandInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$fileName = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('vertretungsplan') . 'Resources/Public/JavaScript/Provider/' . $this->providerName . '/Vertretungsplan.js';
 
 		if (file_exists($fileName)) {
-			$javaScript = '<script src="' . $fileName. '"></script>';
-			$this->response->addAdditionalHeaderData($javaScript);
+			$this->pageRenderer->addJsFooterFile($fileName);
 		}
 
 	}
