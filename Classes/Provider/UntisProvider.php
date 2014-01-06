@@ -35,7 +35,7 @@ class UntisProvider implements StandInProviderInterface {
 		$this->settings = $settings;
 
 		if (empty($this->weekToCheck)) {
-			$this->weekToCheck = date('W');
+			$this->weekToCheck = str_pad(date('W'), 2, 0, STR_PAD_LEFT);;
 		}
 	}
 
