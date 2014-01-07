@@ -2,6 +2,8 @@
 
 namespace Ipf\Vertretungsplan\Controller;
 
+use \TYPO3\CMS\Core\Error\Exception;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Controller
  */
@@ -79,12 +81,12 @@ class StandInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 			$providerClassName = 'Ipf\Vertretungsplan\Provider\\'. $providerName . 'Provider';
 			$this->providerName = $providerName;
 			if (class_exists($providerClassName)) {
-				$provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($providerClassName, $providerSettings);
+				$provider = GeneralUtility::makeInstance($providerClassName, $providerSettings);
 			} else {
-				throw new \TYPO3\CMS\Core\Error\Exception('Classname ' + $providerClassName + ' of Provider not found', 1369660886);
+				throw new Exception('Classname ' + $providerClassName + ' of Provider not found', 1369660886);
 			}
 		} else {
-			throw new \TYPO3\CMS\Core\Error\Exception('No Provider configured in TypoScript', 1369645294);
+			throw new Exception('No Provider configured in TypoScript', 1369645294);
 		}
 		return $provider;
 	}
@@ -99,7 +101,7 @@ class StandInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	protected function getProviderSettings($providerName) {
 		if (is_array($this->settings[$providerName])) {
 			$providerSettings = $this->settings[$providerName];
-			$providerSettings = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($providerSettings, array('storageLocation' => $this->settings['storageLocation']));
+			$providerSettings = GeneralUtility::array_merge_recursive_overrule($providerSettings, array('storageLocation' => $this->settings['storageLocation']));
 			return $providerSettings;
 		} else {
 			return Array();
@@ -117,14 +119,14 @@ class StandInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$storageLocation = $this->settings['storageLocation'];
 
 		if (!empty($storageLocation)) {
-			$location = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($storageLocation);
+			$location = GeneralUtility::getFileAbsFileName($storageLocation);
 			if (is_dir($location)) {
 				return $location;
 			} else {
-				throw new \TYPO3\CMS\Core\Error\ErrorException('The configured location ' . $location . ' does not exist', 1369665059);
+				throw new ErrorException('The configured location ' . $location . ' does not exist', 1369665059);
 			}
 		} else {
-			throw new \TYPO3\CMS\Core\Error\ErrorException('No storageLocation configured', 1369663056);
+			throw new ErrorException('No storageLocation configured', 1369663056);
 		}
 
 	}

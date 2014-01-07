@@ -15,7 +15,14 @@ class UntisProviderTest extends \Tx_Phpunit_TestCase {
 
 	public function setUp() {
 		$settings = array();
-		$this->fixture = new \Ipf\Vertretungsplan\Provider\UntisProvider($settings);
+		$this->fixture = $this->getAccessibleMock('Ipf\\Vertretungsplan\\Provider\\UntisProvider', $settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function currentWeekIsCorrectlyDetermined() {
+		var_dump($this->fixture);
 	}
 
 }

@@ -35,7 +35,7 @@ class UntisProvider implements StandInProviderInterface {
 		$this->settings = $settings;
 
 		if (empty($this->weekToCheck)) {
-			$this->weekToCheck = str_pad(date('W'), 2, 0, STR_PAD_LEFT);;
+			$this->weekToCheck = date('W');
 		}
 	}
 
@@ -43,7 +43,7 @@ class UntisProvider implements StandInProviderInterface {
 	 * @return String
 	 */
 	public function getLocation() {
-		$location = $this->settings['storageLocation'] . $this->weekToCheck . '/' . self::PLANFILE;
+		$location = $this->settings['storageLocation'] . str_pad($this->weekToCheck, 2, 0, STR_PAD_LEFT) . '/' . self::PLANFILE;
 		return $location;
 	}
 
